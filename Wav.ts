@@ -18,7 +18,6 @@ export class Wav {
     const buffer = fs.readFileSync(path);
     const header = Wav.parseHeader(buffer);
 
-    // Validate expected format
     if (header.bitDepth !== 16) {
       throw new Error(`Expected 16-bit audio, got ${header.bitDepth}-bit`);
     }
@@ -29,7 +28,6 @@ export class Wav {
     this.bitDepth = header.bitDepth;
     this.sampleRate = header.sampleRate;
 
-    // Extract audio data as Int16Array
     const audioBuffer = buffer.subarray(
       header.dataOffset,
       header.dataOffset + header.dataSize,
@@ -42,17 +40,14 @@ export class Wav {
   }
 
   private static parseHeader(buffer: Buffer): WavHeader {
-    // Check RIFF header
     if (buffer.toString("ascii", 0, 4) !== "RIFF") {
       throw new Error("Invalid WAV file: Missing RIFF header");
     }
 
-    // Check WAVE format
     if (buffer.toString("ascii", 8, 12) !== "WAVE") {
       throw new Error("Invalid WAV file: Not a WAVE file");
     }
 
-    // Find fmt chunk
     let offset = 12;
     while (offset < buffer.length) {
       const chunkId = buffer.toString("ascii", offset, offset + 4);
@@ -108,7 +103,6 @@ export class Wav {
       const end = Math.min(i + samplesPerChunk, this.audioData.length);
       const chunk = this.audioData.slice(i, end);
 
-      // Only process full chunks (you might want to handle partial chunks differently)
       if (chunk.length === samplesPerChunk) {
         yield chunk;
         chunkIndex++;
