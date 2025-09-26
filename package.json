@@ -1,0 +1,22 @@
+{
+  "name": "bosh-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build:typescript": "tsc",
+    "build:docker": "docker build --platform=linux/amd64 -f ./Dockerfile -t bosh:latest .",
+    "build": "yarn build:typescript && yarn build:docker",
+    "start": "docker run bosh"
+  },
+  "devDependencies": {
+    "eslint": "^9.36.0",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "@whereby.com/assistant-sdk": "0.0.0-canary-20250923134558",
+    "node-vad": "^1.1.4"
+  }
+}
