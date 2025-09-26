@@ -24,32 +24,22 @@ async function main() {
 
   const roomConnection = assistant.getRoomConnection();
   roomConnection.subscribeToConnectionStatus((status) => {
-    if (status === "kicked") {
-      console.log("Kicked from room");
-      process.exit();
-    }
+    if (status === "kicked") process.exit();
   });
 
   const stream = assistant.getCombinedAudioStream();
-
   const audioTrack = stream?.getAudioTracks()[0];
-
-  if (!audioTrack) {
-    throw new Error("No track! :()");
-  }
+  if (!audioTrack) throw new Error("No track! :()");
 
   const sendAudioSource = assistant.getLocalAudioSource();
-  if (!sendAudioSource) {
-    throw new Error("No send audio source");
-  }
+  if (!sendAudioSource) throw new Error("No send audio source");
 
   const wav = new Wav("/opt/bosh.wav");
 
   const sink = new AudioSink(audioTrack);
-  sink.subscribe(({ samples }: RTCAudioData) => {
-    audioSource.push(samples);
-  });
   const audioSource = new AudioSource();
+  sink.subscribe(({ samples }: RTCAudioData) => audioSource.push(samples));
+
   const chunkSize =
     (2 * STREAM_INPUT_SAMPLE_RATE_IN_HZ * STREAM_CHUNK_DURATION_IN_MS) / 1000;
   const smoothedInputSource = Readable.from(
@@ -63,45 +53,83 @@ async function main() {
     debounceTime: 500,
   });
 
-  let shouldBosh = false;
-  let lastBosh = Date.now() - 2000; // give it a couple of seconds or it boshes immediately
+  let autoBosh = false;
+  let lastBosh = Date.now() - 2000;
+
+  const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+  const playBosh = async () => {
+    lastBosh = Date.now();
+    for (const chunk of wav.stream(320)) {
+      sendAudioSource.onData({
+        samples: chunk,
+        sampleRate: wav.sampleRate,
+        bitsPerSample: wav.bitDepth,
+        channelCount: 1,
+      });
+      // short delay to avoid hammering
+      await sleep(10);
+    }
+  };
+
+  // queue to handle multiple boshes
+  let isPlayingQueue = false;
+  let queuedBoshes = 0;
+
+  const enqueueBoshes = async (count: number) => {
+    queuedBoshes += count;
+    if (isPlayingQueue) return;
+    isPlayingQueue = true;
+
+    while (queuedBoshes > 0) {
+      queuedBoshes--;
+      await playBosh();
+      await sleep(200); // pause between each bosh
+    }
+
+    isPlayingQueue = false;
+  };
+
+  void roomConnection.subscribeToChatMessages((messages) => {
+    if (messages.length === 0) return;
+    const last = messages[messages.length - 1];
+    if (!last) return;
+
+    const text = (last.text ?? "").trim().toLowerCase();
+
+    if (text.startsWith("!bosh")) {
+      const parts = text.split(" ");
+      const count = parseInt(parts[1] ?? "1", 10);
+      const n = Number.isFinite(count) && count > 0 ? count : 1;
+
+      enqueueBoshes(n);
+      assistant.sendChatMessage(n === 1 ? "bosh" : `bosh x${n}`);
+      return;
+    }
+
+    if (text === "!autobosh") {
+      autoBosh = true;
+      assistant.sendChatMessage("auto bosh enabled");
+      return;
+    }
+
+    if (text === "!stopbosh" || text === "!nobosh") {
+      autoBosh = false;
+      assistant.sendChatMessage("auto bosh disabled");
+      return;
+    }
+  });
 
   smoothedInputSource.pipe(vadStream).on(
     "data",
-    ({
-      speech,
-    }: {
-      time: number;
-      audioData: Buffer;
-      speech: {
-        state: boolean;
-        start: boolean;
-        end: boolean;
-        startTime: 0;
-        duration: 0;
-      };
-    }) => {
-      if (speech.start) {
-        shouldBosh = true;
-      }
+    ({ speech }: { speech: { end: boolean } }) => {
       const timeSinceBosh = Date.now() - lastBosh;
-      if (shouldBosh && speech.end && sendAudioSource && timeSinceBosh > 5000) {
-        console.log("BOSH!");
-
-        lastBosh = Date.now();
-        shouldBosh = false;
-
-        for (let chunk of wav.stream(320)) {
-          sendAudioSource.onData({
-            samples: chunk,
-            sampleRate: wav.sampleRate,
-            bitsPerSample: wav.bitDepth,
-            channelCount: 1,
-          });
-        }
+      if (autoBosh && speech.end && timeSinceBosh > 5000) {
+        enqueueBoshes(1);
       }
     },
   );
 }
 
 main();
+
