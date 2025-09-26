@@ -11,6 +11,9 @@ requires Docker
 ## Available commands
 
 `!bosh` BOSH~
+
 `!bosh 2` BOSH BOSH~
+
 `!autobosh` BOSH when silent
+
 `!stopbosh` no BOSH when silent
