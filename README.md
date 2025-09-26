@@ -7,3 +7,10 @@ requires Docker
 2. yarn build 
 3. join the room yourself (or John won't be let in)
 4. yarn start
+
+## Available commands
+
+`!bosh` BOSH~
+`!bosh 2` BOSH BOSH~
+`!autobosh` BOSH when silent
+`!stopbosh` no BOSH when silent
