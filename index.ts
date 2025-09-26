@@ -23,7 +23,6 @@ async function main() {
   assistant.startLocalMedia();
 
   const roomConnection = assistant.getRoomConnection();
-
   roomConnection.subscribeToConnectionStatus((status) => {
     if (status === "kicked") process.exit();
   });
@@ -57,7 +56,9 @@ async function main() {
   let autoBosh = false;
   let lastBosh = Date.now() - 2000;
 
-  const playBosh = () => {
+  const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+  const playBosh = async () => {
     lastBosh = Date.now();
     for (const chunk of wav.stream(320)) {
       sendAudioSource.onData({
@@ -66,13 +67,14 @@ async function main() {
         bitsPerSample: wav.bitDepth,
         channelCount: 1,
       });
+      // short delay to avoid hammering
+      await sleep(10);
     }
   };
 
   // queue to handle multiple boshes
   let isPlayingQueue = false;
   let queuedBoshes = 0;
-  const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
   const enqueueBoshes = async (count: number) => {
     queuedBoshes += count;
@@ -81,8 +83,8 @@ async function main() {
 
     while (queuedBoshes > 0) {
       queuedBoshes--;
-      playBosh();
-      await sleep(200); // small pause between each bosh
+      await playBosh();
+      await sleep(200); // pause between each bosh
     }
 
     isPlayingQueue = false;
@@ -95,7 +97,6 @@ async function main() {
 
     const text = (last.text ?? "").trim().toLowerCase();
 
-    // "!bosh" or "!bosh 3"
     if (text.startsWith("!bosh")) {
       const parts = text.split(" ");
       const count = parseInt(parts[1] ?? "1", 10);
@@ -124,10 +125,11 @@ async function main() {
     ({ speech }: { speech: { end: boolean } }) => {
       const timeSinceBosh = Date.now() - lastBosh;
       if (autoBosh && speech.end && timeSinceBosh > 5000) {
-        playBosh();
+        enqueueBoshes(1);
       }
     },
   );
 }
 
 main();
+
