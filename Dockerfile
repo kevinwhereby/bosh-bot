@@ -16,13 +16,9 @@ RUN groupadd captureagentgroup \
 COPY ./package.json /opt
 COPY ./yarn.lock /opt
 
-# Copy package.jsons for all workspace packages
-COPY package.json /opt/
-
 RUN yarn install --production --ignore-optional
 
 COPY dist /opt/dist
-COPY bosh.wav /opt
 
 RUN chown -R captureagent:captureagentgroup .
 

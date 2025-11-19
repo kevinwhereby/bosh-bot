@@ -1,0 +1,11 @@
+{
+  "version": "v1",
+  "packages": {
+    "@whereby.com/assistant-sdk": {
+      "version": "1.1.7",
+      "signature": "8130cabba9fd6be92f8acf2b2bd7a0bc",
+      "file": true,
+      "replaced": "0.0.0-canary-20250923134558"
+    }
+  }
+}

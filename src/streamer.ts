@@ -1,10 +1,7 @@
-import type { Transform } from "stream";
+import type { Readable } from "stream";
 
 // Async generator that takes any bursty input stream and creates a consistent chunk size output stream
-export default async function*(
-  streamSource: AsyncIterable<Buffer<ArrayBufferLike>>,
-  chunkSize: number,
-) {
+export default async function* (streamSource: Readable, chunkSize: number) {
   let remainingChunk: Buffer = Buffer.alloc(0);
 
   let payloadChunk: Buffer;

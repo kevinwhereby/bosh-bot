@@ -193,40 +193,47 @@
   resolved "https://registry.yarnpkg.com/@types/ms/-/ms-2.1.0.tgz#052aa67a48eccc4309d7f0191b7e41434b90bb78"
   integrity sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==
 
+"@types/node@^24.10.1":
+  version "24.10.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-24.10.1.tgz#91e92182c93db8bd6224fca031e2370cef9a8f01"
+  integrity sha512-GNWcUTRBgIRJD5zj+Tq0fKOJ5XZajIiBroOF0yvj2bSU1WvNdYS/dn9UxwsujGW4JX06dnHyjV2y9rRaybH0iQ==
+  dependencies:
+    undici-types "~7.16.0"
+
 "@types/web@^0.0.267":
   version "0.0.267"
   resolved "https://registry.yarnpkg.com/@types/web/-/web-0.0.267.tgz#6bd4b5a24fa5cd5ae8f0919ac56fead1e55586ec"
   integrity sha512-BoXcBEr/fnGEl5wRmtbBg2zOAKiQszHPc1gxBMstiUBosGV8t5xZflmbgQV+y1I4x+lBo7Kb1HLItt2h+TdQBw==
 
-"@whereby.com/assistant-sdk@0.0.0-canary-20250923134558":
-  version "0.0.0-canary-20250923134558"
-  resolved "https://registry.yarnpkg.com/@whereby.com/assistant-sdk/-/assistant-sdk-0.0.0-canary-20250923134558.tgz#ce7c9fe708a387c1ee43d555e86cbaaed7cee59b"
-  integrity sha512-gEdTr0MSDdToc6gulnvEL6ndiBVyBPbHy+3EcHY79aCb+O6mwwnFxyke8Ti4MeT29Z74k9wADEkjWtU0MSSR0g==
+"@whereby.com/assistant-sdk@0.0.0-canary-20251119165424":
+  version "0.0.0-canary-20251119165424"
+  resolved "https://registry.yarnpkg.com/@whereby.com/assistant-sdk/-/assistant-sdk-0.0.0-canary-20251119165424.tgz#83b560bb2d001e55122d06396e932a5c484dab8f"
+  integrity sha512-2kYwq9R487LiVatF1hYyJpiGWjy3uCRTmIn1D0pr+hEYHyTNgYwZw/nmY9Nr/ObLe5X84HxI1Wl0f/IpDa/6pg==
   dependencies:
     "@roamhq/wrtc" "github:whereby/node-webrtc#patch/rtc_audio_source"
     "@types/web" "^0.0.267"
-    "@whereby.com/core" "0.0.0-canary-20250923134558"
+    "@whereby.com/core" "1.2.7"
     body-parser "2.2.0"
     dotenv "^16.4.5"
     express "5.1.0"
     uuid "^11.0.3"
     ws "^8.18.0"
 
-"@whereby.com/core@0.0.0-canary-20250923134558":
-  version "0.0.0-canary-20250923134558"
-  resolved "https://registry.yarnpkg.com/@whereby.com/core/-/core-0.0.0-canary-20250923134558.tgz#a4f2c1701a319acfadf3860f4521280062615c60"
-  integrity sha512-YZVE6lBJxFySvUdUXHFyw76YOIn1j+aRtOoUqCL0C34SK6eXy0SGktEsGtcqmPzKUAAGAhmMZ63+sWIDbXDTrA==
+"@whereby.com/core@1.2.7":
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/@whereby.com/core/-/core-1.2.7.tgz#5ece72d50d6173d15fceedaf5f1cb0af25ac2cad"
+  integrity sha512-b5shTI8oocwqJQZYuMVn0B6MJtqfvy9UUWZ6nEg7e43MXSxxJqN+0fI6dCkdfwYjt8W1a+5rYl24cc6hQKeVbQ==
   dependencies:
     "@reduxjs/toolkit" "^2.2.3"
-    "@whereby.com/media" "0.0.0-canary-20250923134558"
+    "@whereby.com/media" "2.5.2"
     axios "^1.11.0"
     btoa "^1.2.1"
     events "^3.3.0"
 
-"@whereby.com/media@0.0.0-canary-20250923134558":
-  version "0.0.0-canary-20250923134558"
-  resolved "https://registry.yarnpkg.com/@whereby.com/media/-/media-0.0.0-canary-20250923134558.tgz#e0c7c8daa43aaebb7d94c53df025c85524bdfed5"
-  integrity sha512-+JJVkFhUIhg4Adedm/dt8wOSyv0SaSMCxsRziqD92QM0IP9QGgLNxVE8Sa/oDOxE/LH/csYrAC2ulyBdW8qVDw==
+"@whereby.com/media@2.5.2":
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/@whereby.com/media/-/media-2.5.2.tgz#84314ff445756680e79863bb9ec85fb5712ba4df"
+  integrity sha512-/Fz0iQVZFdZovrXoLG54JIQiMHWqakN5Kc/Kh/QsnoRVXMy42aBuFjuHktof57AGT9veEHgpQVTYbWEy/ZHleg==
   dependencies:
     check-ip "^1.1.1"
     events "^3.3.0"
@@ -1441,6 +1448,11 @@ typescript@^5.9.2:
   version "5.9.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.9.2.tgz#d93450cddec5154a2d5cabe3b8102b83316fb2a6"
   integrity sha512-CWBzXQrc/qOkhidw1OzBTQuYRbfyxDXJMVJ1XNwUHGROVmuaeiEm3OslpZ1RV96d7SKKjZKrSJu3+t/xlw3R9A==
+
+undici-types@~7.16.0:
+  version "7.16.0"
+  resolved "https://registry.yarnpkg.com/undici-types/-/undici-types-7.16.0.tgz#ffccdff36aea4884cbfce9a750a0580224f58a46"
+  integrity sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==
 
 unpipe@1.0.0:
   version "1.0.0"

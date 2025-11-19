@@ -14,9 +14,8 @@ export class Wav {
   public bitDepth: number;
   public audioData: Int16Array;
 
-  constructor(path: string) {
-    const buffer = fs.readFileSync(path);
-    const header = Wav.parseHeader(buffer);
+  constructor(data: Buffer) {
+    const header = Wav.parseHeader(data);
 
     if (header.bitDepth !== 16) {
       throw new Error(`Expected 16-bit audio, got ${header.bitDepth}-bit`);
@@ -28,7 +27,7 @@ export class Wav {
     this.bitDepth = header.bitDepth;
     this.sampleRate = header.sampleRate;
 
-    const audioBuffer = buffer.subarray(
+    const audioBuffer = data.subarray(
       header.dataOffset,
       header.dataOffset + header.dataSize,
     );
