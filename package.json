@@ -32,7 +32,7 @@
     "typescript": "^5.9.2"
   },
   "dependencies": {
-    "@whereby.com/assistant-sdk": "0.0.0-canary-20251119165424",
+    "@whereby.com/assistant-sdk": "^1.1.10",
     "node-vad": "^1.1.4"
   }
 }

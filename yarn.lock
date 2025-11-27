@@ -205,35 +205,35 @@
   resolved "https://registry.yarnpkg.com/@types/web/-/web-0.0.267.tgz#6bd4b5a24fa5cd5ae8f0919ac56fead1e55586ec"
   integrity sha512-BoXcBEr/fnGEl5wRmtbBg2zOAKiQszHPc1gxBMstiUBosGV8t5xZflmbgQV+y1I4x+lBo7Kb1HLItt2h+TdQBw==
 
-"@whereby.com/assistant-sdk@0.0.0-canary-20251119165424":
-  version "0.0.0-canary-20251119165424"
-  resolved "https://registry.yarnpkg.com/@whereby.com/assistant-sdk/-/assistant-sdk-0.0.0-canary-20251119165424.tgz#83b560bb2d001e55122d06396e932a5c484dab8f"
-  integrity sha512-2kYwq9R487LiVatF1hYyJpiGWjy3uCRTmIn1D0pr+hEYHyTNgYwZw/nmY9Nr/ObLe5X84HxI1Wl0f/IpDa/6pg==
+"@whereby.com/assistant-sdk@^1.1.10":
+  version "1.1.10"
+  resolved "https://registry.yarnpkg.com/@whereby.com/assistant-sdk/-/assistant-sdk-1.1.10.tgz#7b2c34b356aad0112127e88415f6569ceb377436"
+  integrity sha512-uBnpYW5cGhqXHTiA9P2dNXTWdGY9yfzmktSYGj1jlGZrOYMZSLut/hBvOkauWnD6A+zqVOYrm33ywYMYDwG8iA==
   dependencies:
     "@roamhq/wrtc" "github:whereby/node-webrtc#patch/rtc_audio_source"
     "@types/web" "^0.0.267"
-    "@whereby.com/core" "1.2.7"
+    "@whereby.com/core" "1.3.0"
     body-parser "2.2.0"
     dotenv "^16.4.5"
     express "5.1.0"
     uuid "^11.0.3"
     ws "^8.18.0"
 
-"@whereby.com/core@1.2.7":
-  version "1.2.7"
-  resolved "https://registry.yarnpkg.com/@whereby.com/core/-/core-1.2.7.tgz#5ece72d50d6173d15fceedaf5f1cb0af25ac2cad"
-  integrity sha512-b5shTI8oocwqJQZYuMVn0B6MJtqfvy9UUWZ6nEg7e43MXSxxJqN+0fI6dCkdfwYjt8W1a+5rYl24cc6hQKeVbQ==
+"@whereby.com/core@1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@whereby.com/core/-/core-1.3.0.tgz#827aa06876b7e068372fba652b5b4b9c958b43a6"
+  integrity sha512-AmNpxdJGxYtPrXX6IcTZgPyCnunOVZvZnqr5Zu9PfO1rC6iazpM2P4aa2YhzOpCK28bcsLt42W+GnssrJBmwZg==
   dependencies:
     "@reduxjs/toolkit" "^2.2.3"
-    "@whereby.com/media" "2.5.2"
+    "@whereby.com/media" "2.5.4"
     axios "^1.11.0"
     btoa "^1.2.1"
     events "^3.3.0"
 
-"@whereby.com/media@2.5.2":
-  version "2.5.2"
-  resolved "https://registry.yarnpkg.com/@whereby.com/media/-/media-2.5.2.tgz#84314ff445756680e79863bb9ec85fb5712ba4df"
-  integrity sha512-/Fz0iQVZFdZovrXoLG54JIQiMHWqakN5Kc/Kh/QsnoRVXMy42aBuFjuHktof57AGT9veEHgpQVTYbWEy/ZHleg==
+"@whereby.com/media@2.5.4":
+  version "2.5.4"
+  resolved "https://registry.yarnpkg.com/@whereby.com/media/-/media-2.5.4.tgz#41db5c37094ecd351d7cae4d5730d4424fe225c2"
+  integrity sha512-schLpYbRFShbT0LctXbt236xofNYuX/LbHXNxSe0N8KyxPL5KIMCEjzuvpAYaFQX8HkBpr4HflPuX8q2dAWxLw==
   dependencies:
     check-ip "^1.1.1"
     events "^3.3.0"
