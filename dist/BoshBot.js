@@ -6,6 +6,7 @@ import audioStreamer from "./streamer.js";
 import VAD from "node-vad";
 import { Wav } from "./Wav.js";
 import wavData from "./wavData.js";
+import EventEmitter from "events";
 const STREAM_INPUT_SAMPLE_RATE_IN_HZ = 16000;
 const STREAM_CHUNK_DURATION_IN_MS = 100;
 class AudioSource extends PassThrough {
@@ -16,30 +17,28 @@ class AudioSource extends PassThrough {
         });
     }
 }
-// const assistantKey =
-// "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhc3Npc3RhbnRJZCI6IjZlNjAyMWUxLTA2YjUtNDQxMy05ODlkLWY2OWNiNDA1ZWNmNSIsImlzcyI6Imh0dHBzOi8vYWNjb3VudHMuc3J2LndoZXJlYnkuY29tIiwiaWF0IjoxNzU4ODA5ODE2LCJhc3Npc3RhbnRLZXlUeXBlIjoid2hlcmVieUFzc2lzdGFudCJ9.F3hxKQmfAQL6q6wwF6pwPWmLS6BCgKWibN_7xt3kOLY";
-// const roomUrl =     "https://funtimes.whereby.com/verbatim-transcription-z3hg9z"
-export class BoshBot {
-    constructor() { }
-    async start({ roomUrl, assistantKey, }) {
-        const assistant = new Assistant({
+export class BoshBot extends EventEmitter {
+    assistant;
+    constructor({ assistantKey }) {
+        super();
+        this.assistant = new Assistant({
             assistantKey,
         });
-        await assistant.joinRoom(roomUrl);
-        const roomConnection = assistant.getRoomConnection();
-        roomConnection.subscribeToConnectionStatus((status) => {
-            if (status === "kicked") {
-                console.log("Kicked from room");
-            }
+        this.assistant.on("ASSISTANT_LEFT_ROOM", () => {
+            this.emit("stopped", null);
         });
-        const { audioSource: sendAudioSource } = await assistant.startLocalMedia({
+    }
+    async start({ roomUrl }) {
+        await this.assistant.joinRoom(roomUrl);
+        const roomConnection = this.assistant.getRoomConnection();
+        const { audioSource: sendAudioSource } = await this.assistant.startLocalMedia({
             audio: true,
             video: false,
         });
         if (!sendAudioSource) {
             throw new Error("No send audio source");
         }
-        const sink = assistant.getCombinedAudioSink();
+        const sink = this.assistant.getCombinedAudioSink();
         if (!sink) {
             throw new Error("No combined audio sink");
         }
