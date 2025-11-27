@@ -40,7 +40,6 @@ export class BoshBot {
     roomConnection.subscribeToConnectionStatus((status) => {
       if (status === "kicked") {
         console.log("Kicked from room");
-        process.exit();
       }
     });
 
