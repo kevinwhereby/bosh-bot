@@ -205,10 +205,10 @@
   resolved "https://registry.yarnpkg.com/@types/web/-/web-0.0.267.tgz#6bd4b5a24fa5cd5ae8f0919ac56fead1e55586ec"
   integrity sha512-BoXcBEr/fnGEl5wRmtbBg2zOAKiQszHPc1gxBMstiUBosGV8t5xZflmbgQV+y1I4x+lBo7Kb1HLItt2h+TdQBw==
 
-"@whereby.com/assistant-sdk@^1.1.10":
-  version "1.1.10"
-  resolved "https://registry.yarnpkg.com/@whereby.com/assistant-sdk/-/assistant-sdk-1.1.10.tgz#7b2c34b356aad0112127e88415f6569ceb377436"
-  integrity sha512-uBnpYW5cGhqXHTiA9P2dNXTWdGY9yfzmktSYGj1jlGZrOYMZSLut/hBvOkauWnD6A+zqVOYrm33ywYMYDwG8iA==
+"@whereby.com/assistant-sdk@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@whereby.com/assistant-sdk/-/assistant-sdk-1.2.0.tgz#e62d1f462ba6cc2b8c7736c4aded9d4d88172a49"
+  integrity sha512-XFbViOg1YHtUeH8rvsyMl3j4pxgxVWPHJ7xmmgrbRyADlEUFrCijNd8d64DrgPUDP8PCefd2NfomWqHSyYhKiA==
   dependencies:
     "@roamhq/wrtc" "github:whereby/node-webrtc#patch/rtc_audio_source"
     "@types/web" "^0.0.267"
